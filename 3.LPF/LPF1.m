@@ -1,4 +1,4 @@
-function xlpf = LPF(x)
+function xlpf1 = LPF1(x)
 %
 %
 persistent prevX
@@ -12,7 +12,7 @@ if isempty(firstRun)
 end
 
 
-alpha = 0.4;
-xlpf = alpha*prevX + (1 - alpha)*x;
+alpha = 0.9;
+xlpf1 = alpha*prevX + (1 - alpha)*x;
 
-prevX = xlpf;
+prevX = xlpf1;

@@ -18,3 +18,4 @@ avg   = alpha*prevAvg + (1 - alpha)*x;
 
 prevAvg = avg;
 k       = k + 1;
+
