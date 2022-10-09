@@ -15,16 +15,9 @@ firstRun2 = True
 X2, P2, A2, H2, Q2, R2 = 0, 0, 0, 0, 0, 0
 
 def GetBallPos(iimg=0):
-    """Return measured position of ball by comparing with background image file.
-        - References:
-        (1) Data Science School:
-            https://datascienceschool.net/view-notebook/f9f8983941254a34bf0fee42c66c5539
-        (2) Image Diff Calculation:
-            https://www.pyimagesearch.com/2017/06/19/image-difference-with-opencv-and-python
-    """
     # Read images.
-    imageA = cv2.imread('./10_Img/bg.jpg')
-    imageB = cv2.imread('./10_Img/{}.jpg'.format(iimg+1))
+    imageA = cv2.imread('C:/Users/User/github/Kalman_filter/10.TrackKalman/Img/bg.jpg')
+    imageB = cv2.imread('C:/Users/User/github/Kalman_filter/10.TrackKalman/Img/{}.jpg'.format(iimg+1))
 
     # Convert the images to grayscale.
     grayA = cv2.cvtColor(imageA, cv2.COLOR_BGR2GRAY)
@@ -109,7 +102,7 @@ def TrackKalmanQR(xm, ym):
     return xh, yh
 
 NoOfImg = 24
-#Xmsaved = np.zeros([NoOfImg,2])
+Xmsaved = np.zeros([NoOfImg,2])
 Xhsaved = np.zeros([NoOfImg,2])
 Xqrsaved = np.zeros([NoOfImg,2])
 
@@ -118,12 +111,12 @@ for k in range(NoOfImg):
     xh, yh = TrackKalman(xm, ym)
     xqr, yqr = TrackKalmanQR(xm, ym)
 
-    #Xmsaved[k] = [xm, ym]
+    Xmsaved[k] = [xm, ym]
     Xhsaved[k] = [xh, yh]
     Xqrsaved[k] = [xqr, yqr]
 
 plt.figure()
-#plt.plot(Xmsaved[:,0], Xmsaved[:,1], '*', label='Measured')
+plt.plot(Xmsaved[:,0], Xmsaved[:,1], '*', label='Measured')
 plt.plot(Xhsaved[:,0], Xhsaved[:,1], 's', label='Q')
 plt.plot(Xqrsaved[:,0], Xqrsaved[:,1], 'o', label='1/100 Q')
 plt.legend(loc='upper left')
@@ -133,5 +126,5 @@ plt.ylim([0, 250])
 plt.xlim([0, 350])
 plt.plot([0, 350], [250, 0], '-')
 plt.gca().invert_yaxis()
-plt.savefig('result/10_TrackerKalmanQR.png')
+#.savefig('result/10_TrackerKalmanQR.png')
 plt.show()

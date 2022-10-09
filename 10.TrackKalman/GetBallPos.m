@@ -13,7 +13,7 @@ end
 xc = 0;
 yc = 0;
   
-imgWork = imread(['Img/', int2str(index), '.jpg']); 
+imgWork = imread(['C:/Users/User/github/Kalman_filter/10.TrackKalman/Img/', int2str(index), '.jpg']); 
 imshow(imgWork)
 
 fore = imabsdiff(imgWork, imgBg);
