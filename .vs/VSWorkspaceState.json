@@ -1,8 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\11.ARS"
+    "\\0.Practice",
+    "\\1.AvgFilter",
+    "\\2.MovAvgFilter"
   ],
-  "SelectedNode": "\\11.ARS",
+  "SelectedNode": "\\0.Practice\\avgfilter.py",
   "PreviewInSolutionExplorer": false
 }
