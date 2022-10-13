@@ -1,8 +1,3 @@
-'''
- Filename: 02_MovAvgFilter.py
- Created on: April, 3, 2021
- Author: dhpark
-'''
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy import io

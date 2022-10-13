@@ -2,10 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\0.Practice",
-    "\\1.AvgFilter",
-    "\\2.MovAvgFilter",
     "\\8.SimpleKalman"
   ],
-  "SelectedNode": "\\8.SimpleKalman\\08_SimpleExample.py",
+  "SelectedNode": "\\0.Practice\\SimpleKalman.py",
   "PreviewInSolutionExplorer": false
 }

@@ -1,23 +1,29 @@
-﻿import numpy as np
+import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 
-prevAvg = 0
-k = 1
+xbuf = []
+firstRun = True
 
 input_mat = pd.read_csv("C:/Users/User/Desktop/measurmens.csv")
 test_mat = pd.read_csv("C:/Users/User/Desktop/groundTruth.csv")
 
-def AvgFilter(x):
-    global k, prevAvg
-    alpha = (k-1) / k
-    avg = alpha * prevAvg + (1 - alpha)*x
-    prevAvg = avg
-    k += 1
+def MovAvgFilter_batch(x):
+    global n, xbuf, firstRun
+    if firstRun:
+        n = 5
+        xbuf = x * np.ones(n)
+        firstRun = False
+    else:
+        for i in range(n-1):
+            xbuf[i] = xbuf[i+1]
+        xbuf[n-1] = x
+    avg = np.sum(xbuf) / n
     return avg
 
-y1 = input_mat.iloc[:,[1]] # y 추출
-x1 = input_mat.iloc[:,[0]] # x 추출
+
+y1 = input_mat.iloc[:,[1]] 
+x1 = input_mat.iloc[:,[0]] 
 y1 = y1.to_numpy()
 x1 = x1.to_numpy()
 y2 = np.ravel(y1,order = 'c')
@@ -28,10 +34,10 @@ first = True
 for i in range(len(y2)):
     if first == True:
         Count = np.array([0])
-        a = AvgFilter(y2[i])
+        a = MovAvgFilter_batch(y2[i])
         first = False
     else:
-        a = np.append(a,np.array(AvgFilter(y2[i])))
+        a = np.append(a,np.array(MovAvgFilter_batch(y2[i])))
         Count = np.append(Count, np.array([i]))
         i +=1
     

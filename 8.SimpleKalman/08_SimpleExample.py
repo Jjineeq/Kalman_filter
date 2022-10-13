@@ -1,8 +1,3 @@
-'''
- Filename: 08_SimpleExample.py
- Created on: April,3, 2021
- Author: dhpark
-'''
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -47,12 +42,11 @@ for i in range(Nsamples):
     X_esti[i] = [Xe, Cov, Kg]
     Z_saved[i] = Z
 
-# plt.plot(t, Z_saved, 'b*--', label='Measurements')
-# plt.plot(t, X_esti[:,0], 'ro', label='Kalman Filter')
-# plt.legend(loc='upper left')
-# plt.ylabel('Volt [V]')
-# plt.xlabel('Time [sec]')
-#plt.savefig('result/08_SimpleExample.png')
+plt.plot(t, Z_saved, 'b*--', label='Measurements')
+plt.plot(t, X_esti[:,0], 'ro', label='Kalman Filter')
+plt.legend(loc='upper left')
+plt.ylabel('Volt [V]')
+plt.xlabel('Time [sec]')
 
 plt.figure()
 plt.plot(t, X_esti[:,1], 'o-')
