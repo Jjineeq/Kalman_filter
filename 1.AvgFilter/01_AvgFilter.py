@@ -1,8 +1,3 @@
-'''
- Filename: 01_AvgFilter.py
- Created on: April, 3, 2021
- Author: dhpark
-'''
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -38,5 +33,4 @@ plt.plot(t, Avgsaved, 'ro', label='Average')
 plt.legend(loc='upper left')
 plt.ylabel('Volt [V]')
 plt.xlabel('Time [sec]')
-#plt.savefig('result/01_average_filter.png')
 plt.show()

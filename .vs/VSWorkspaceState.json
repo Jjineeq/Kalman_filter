@@ -3,8 +3,9 @@
     "",
     "\\0.Practice",
     "\\1.AvgFilter",
-    "\\2.MovAvgFilter"
+    "\\2.MovAvgFilter",
+    "\\8.SimpleKalman"
   ],
-  "SelectedNode": "\\0.Practice\\avgfilter.py",
+  "SelectedNode": "\\8.SimpleKalman\\08_SimpleExample.py",
   "PreviewInSolutionExplorer": false
 }

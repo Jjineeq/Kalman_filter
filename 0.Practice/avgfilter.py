@@ -1,11 +1,12 @@
-import numpy as np
+﻿import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 
 prevAvg = 0
 k = 1
 
-input_mat = pd.read_csv("C:/Users/User/Desktop/measurmens")
+input_mat = pd.read_csv("C:/Users/User/Desktop/measurmens.csv")
+test_mat = pd.read_csv("C:/Users/User/Desktop/groundTruth.csv")
 
 def AvgFilter(x):
     global k, prevAvg
@@ -15,25 +16,27 @@ def AvgFilter(x):
     k += 1
     return avg
 
-def GetVolt():
-    return 14.4 + np.random.normal(0, 4, 1)
+y1 = input_mat.iloc[:,[1]] # y 추출
+x1 = input_mat.iloc[:,[0]] # x 추출
+y1 = y1.to_numpy()
+x1 = x1.to_numpy()
 
-t = np.arange(0, 10, 0.2)
-Nsamples = len(t)
 
-Avgsaved = np.zeros(Nsamples)
-Xmsaved = np.zeros(Nsamples)
+for i in y1:
+    first = True
+    Count = pd.DataFrame([0])
+    if first == True:
+        a = AvgFilter(y1[i])
+        first == False
+    else:
+        a.append.AvgFilter(y1[i])
+        Count.loc[i]=[i]
+    
 
-for i in range(Nsamples):
-    xm = GetVolt()
-    avg = AvgFilter(xm)
 
-    Avgsaved[i] = avg
-    Xmsaved[i] = xm
-
-plt.plot(t, Xmsaved, 'b*--', label='Measured')
-plt.plot(t, Avgsaved, 'ro', label='Average')
+plt.plot(Count, y1, 'b*--', label='Measured')
+plt.plot(Count, a, 'ro', label='Average')
 plt.legend(loc='upper left')
-plt.ylabel('Volt [V]')
-plt.xlabel('Time [sec]')
+plt.ylabel('y')
+plt.xlabel('x')
 plt.show()
