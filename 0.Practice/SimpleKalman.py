@@ -12,6 +12,8 @@ x1 = x1.to_numpy()
 y2 = np.ravel(y1,order = 'c')
 x2 = np.ravel(x1,order ='c')
 
+
+
 First = True
 firstRun = True
 X, P = 0, 0 
@@ -23,10 +25,10 @@ def SimpleKalman(z):
     global A, Q, H, R
     global X, P
     if firstRun:
-        A, Q = 5,20
-        H, R = 1,10
+        A, Q = 10,5
+        H, R = 15,10
 
-        X = 500
+        X = 0
         P = 30
         firstRun = False
 
@@ -80,7 +82,7 @@ for k in range(len(t1)):
 
 plt.figure()
 plt.plot(Count, X_esti[:,0], 'r', label='Kalman Filter')
-plt.plot(z, t1, 'g.', label='groundTruth')
+plt.plot(z, t1, 'g', label='groundTruth')
 plt.plot(Count, y2, 'b.', label='Measurements')
 plt.legend(loc='upper right')
 plt.ylabel('y')

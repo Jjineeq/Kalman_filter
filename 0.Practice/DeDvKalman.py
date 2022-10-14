@@ -1,40 +1,24 @@
 import numpy as np
-from numpy.linalg import inv
 import matplotlib.pyplot as plt
+import pandas as pd
+from numpy.linalg import inv
 
-np.random.seed(0)
+input_mat = pd.read_csv("C:/Users/User/Desktop/measurmens.csv")
+test_mat = pd.read_csv("C:/Users/User/Desktop/groundTruth.csv")
 
+y1 = input_mat.iloc[:,[1]] 
+x1 = input_mat.iloc[:,[0]] 
+y1 = y1.to_numpy()
+x1 = x1.to_numpy()
+y2 = np.ravel(y1,order = 'c')
+x2 = np.ravel(x1,order ='c')
+
+First = True
 firstRun = True
-X, P = np.array([[0,0]]).transpose(), np.zeros((2,2)) # X : Previous State Variable Estimation, P : Error Covariance Estimation
-A, H = np.array([[0,0], [0,0]]), np.array([[0,0]])
-Q, R = np.array([[0,0], [0,0]]), 0
+X, P = 0, 0 
+A, H, Q, R = 0, 0, 0, 0
 
-firstRun2 = True
-X2, P2 = np.array([[0,0]]).transpose(), np.zeros((2,2)) # X : Previous State Variable Estimation, P : Error Covariance Estimation
-A2, H2 = np.array([[0,0], [0,0]]), np.array([[0,0]])
-Q2, R2 = np.array([[0,0], [0,0]]), 0
 
-Posp, Velp = None, None
-
-def GetPos():
-    global Posp, Velp
-    if Posp == None:
-        Posp = 0
-        Velp = 80
-    dt = 0.1
-
-    w = 0 + 10 * np.random.normal()
-    v = 0 + 10 * np.random.normal()
-
-    z = Posp + Velp * dt + v  # Position measurement
-
-    Posp = z - v
-    Velp = 80 + w
-    return z, Posp, Velp
-
-'''
-    Estimate velocity through displacement
-'''
 def DvKalman(z):
     global firstRun
     global A, Q, H, R
@@ -93,24 +77,50 @@ def DeDvKalman(z):
 
     return pos, vel
 
-t = np.arange(0, 10, 0.1)
-Nsamples = len(t)
+X_esti = np.zeros([len(y2), 3])
+Z_saved = np.zeros(len(y2))
 
-Xsaved = np.zeros([Nsamples, 2])
-DeXsaved = np.zeros([Nsamples, 2])
 
-for i in range(Nsamples):
-    Z, pos_true, vel_true = GetPos()
-    pos, vel = DvKalman(Z)
-    dpos, dvel = DeDvKalman(Z)
+for i in range(len(y2)):
+    if First:
+        Count = np.array([0])
+        First = False
+    else:
+        Z = y2[i]
+        Xe, Cov, Kg = (Z)
+        X_esti[i] = [Xe, Cov, Kg]
+        Z_saved[i] = Z
+        Count = np.append(Count, np.array([i]))
 
-    Xsaved[i] = [pos, vel]
-    DeXsaved[i] = [dpos, dvel]
+
+plt.plot(Count, y2, 'b.', label='Measurements') # real data
+plt.plot(Count, X_esti[:,0], 'r', label='Kalman Filter') # 노이즈 제거 안됨
+plt.legend(loc='upper right')
+plt.ylabel('y')
+plt.xlabel('x')
+#plt.show()
+
+
+t = test_mat.iloc[:,[1]] 
+q = test_mat.iloc[:,[0]] 
+t = t.to_numpy()
+q = q.to_numpy()
+t1 = np.ravel(t,order ='c')
+q1 = np.ravel(q,order = 'c')
+
+second = True
+for k in range(len(t1)):
+    if second:
+        z = np.array([0])
+        second = False
+    else:
+        z = np.append(z, np.array([k]))
 
 plt.figure()
-plt.plot(t, Xsaved[:,1], 'b*', label = 'Matrix')
-plt.plot(t, DeXsaved[:,1], 'r-', label='Decomposed')
-plt.legend(loc='upper left')
-plt.ylabel('Velocity [m/s]')
-plt.xlabel('Time [sec]')
+plt.plot(Count, X_esti[:,0], 'r', label='Kalman Filter')
+plt.plot(z, t1, 'g', label='groundTruth')
+plt.plot(Count, y2, 'b.', label='Measurements')
+plt.legend(loc='upper right')
+plt.ylabel('y')
+plt.xlabel('x')
 plt.show()
