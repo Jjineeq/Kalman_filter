@@ -1,4 +1,4 @@
-import numpy as np
+Ôªøimport numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 from numpy.linalg import inv
@@ -13,10 +13,27 @@ x1 = x1.to_numpy()
 y2 = np.ravel(y1,order = 'c')
 x2 = np.ravel(x1,order ='c')
 
-First = True
+
+t = test_mat.iloc[:,[1]] 
+q = test_mat.iloc[:,[0]] 
+t = t.to_numpy()
+q = q.to_numpy()
+t1 = np.ravel(t,order ='c')
+q1 = np.ravel(q,order = 'c')
+
+np.random.seed(0)
+
 firstRun = True
-X, P = 0, 0 
-A, H, Q, R = 0, 0, 0, 0
+X, P = np.array([[0,0]]).transpose(), np.zeros((2,2)) # X : Previous State Variable Estimation, P : Error Covariance Estimation
+A, H = np.array([[0,0], [0,0]]), np.array([[0,0]])
+Q, R = np.array([[0,0], [0,0]]), 0
+
+firstRun2 = True
+X2, P2 = np.array([[0,0]]).transpose(), np.zeros((2,2)) # X : Previous State Variable Estimation, P : Error Covariance Estimation
+A2, H2 = np.array([[0,0], [0,0]]), np.array([[0,0]])
+Q2, R2 = np.array([[0,0], [0,0]]), 0
+
+Posp, Velp = None, None
 
 
 def DvKalman(z):
@@ -77,9 +94,11 @@ def DeDvKalman(z):
 
     return pos, vel
 
-X_esti = np.zeros([len(y2), 3])
-Z_saved = np.zeros(len(y2))
 
+Xsaved = np.zeros([len(y2), 2])
+DeXsaved = np.zeros([len(y2),2])
+
+First = True
 
 for i in range(len(y2)):
     if First:
@@ -87,26 +106,19 @@ for i in range(len(y2)):
         First = False
     else:
         Z = y2[i]
-        Xe, Cov, Kg = (Z)
-        X_esti[i] = [Xe, Cov, Kg]
-        Z_saved[i] = Z
+        pos, vel = DvKalman(Z)
+        dpos, dvel = DeDvKalman(Z)
+        Xsaved[i] = [pos, vel]
+        DeXsaved[i] = [dpos, dvel]
         Count = np.append(Count, np.array([i]))
 
 
-plt.plot(Count, y2, 'b.', label='Measurements') # real data
-plt.plot(Count, X_esti[:,0], 'r', label='Kalman Filter') # ≥Î¿Ã¡Ó ¡¶∞≈ æ»µ 
-plt.legend(loc='upper right')
-plt.ylabel('y')
-plt.xlabel('x')
+#plt.plot(Count, y2, 'b.', label='Measurements') # real data
+#plt.plot(Count, DeXsaved[:,0], 'r', label='Kalman Filter') # ÎÖ∏Ïù¥Ï¶à Ï†úÍ±∞ ÏïàÎê®
+#plt.legend(loc='upper right')
+#plt.ylabel('y')
+#plt.xlabel('x')
 #plt.show()
-
-
-t = test_mat.iloc[:,[1]] 
-q = test_mat.iloc[:,[0]] 
-t = t.to_numpy()
-q = q.to_numpy()
-t1 = np.ravel(t,order ='c')
-q1 = np.ravel(q,order = 'c')
 
 second = True
 for k in range(len(t1)):
@@ -117,8 +129,8 @@ for k in range(len(t1)):
         z = np.append(z, np.array([k]))
 
 plt.figure()
-plt.plot(Count, X_esti[:,0], 'r', label='Kalman Filter')
-plt.plot(z, t1, 'g', label='groundTruth')
+plt.plot(Count, DeXsaved[:,0], 'r', label='Kalman Filter')
+plt.plot(Count, t1, 'g', label='groundTruth')
 plt.plot(Count, y2, 'b.', label='Measurements')
 plt.legend(loc='upper right')
 plt.ylabel('y')

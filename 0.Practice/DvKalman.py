@@ -13,6 +13,13 @@ x1 = x1.to_numpy()
 y2 = np.ravel(y1,order = 'c')
 x2 = np.ravel(x1,order ='c')
 
+t1 = test_mat.iloc[:,[1]] 
+q1 = test_mat.iloc[:,[0]] 
+t1 = t1.to_numpy()
+q1 = q1.to_numpy()
+t2 = np.ravel(t1,order ='c')
+q2 = np.ravel(q1,order = 'c')
+
 First = True
 firstRun = True
 X, P = 0, 0 
@@ -47,8 +54,8 @@ def DvKalman(z):
 
     return pos, vel
 
-X_esti = np.zeros([len(y2), 3])
-Z_saved = np.zeros(len(y2))
+X_esti = np.zeros([len(y2), 2])
+Z_saved = np.zeros([len(y2), 2])
 
 
 for i in range(len(y2)):
@@ -57,10 +64,9 @@ for i in range(len(y2)):
         First = False
     else:
         Z = y2[i]
-
-        z, pos_true = DvKalman(Z)
+        pos, vel = DvKalman(Z)
         X_esti[i] = [pos, vel]
-        Z_saved[i] = [pos_ture, vel_true]
+        Z_saved[i] = y2[i], t2[i]
         Count = np.append(Count, np.array([i]))
 
 
@@ -72,12 +78,7 @@ plt.xlabel('x')
 plt.show()
 
 
-#t = test_mat.iloc[:,[1]] 
-#q = test_mat.iloc[:,[0]] 
-#t = t.to_numpy()
-#q = q.to_numpy()
-#t1 = np.ravel(t,order ='c')
-#q1 = np.ravel(q,order = 'c')
+
 
 #second = True
 #for k in range(len(t1)):

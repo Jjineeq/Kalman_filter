@@ -25,11 +25,11 @@ def SimpleKalman(z):
     global A, Q, H, R
     global X, P
     if firstRun:
-        A, Q = 10,5
-        H, R = 15,10
+        A, Q = 1,1
+        H, R = 1,4
 
-        X = 0
-        P = 30
+        X = 14
+        P = 6
         firstRun = False
 
     Xp = A * X 
