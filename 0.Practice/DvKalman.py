@@ -57,6 +57,7 @@ for i in range(len(y2)):
         First = False
     else:
         Z = y2[i]
+
         z, pos_true = DvKalman(Z)
         X_esti[i] = [pos, vel]
         Z_saved[i] = [pos_ture, vel_true]
