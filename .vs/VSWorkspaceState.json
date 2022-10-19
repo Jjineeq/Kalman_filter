@@ -1,9 +1,11 @@
 {
   "ExpandedNodes": [
     "",
-    "\\11.ARS",
+    "\\0.Practice",
+    "\\10.TrackKalman",
+    "\\12.EKF",
     "\\9.DvKalman"
   ],
-  "SelectedNode": "\\11.ARS\\11_EulerAccel.py",
+  "SelectedNode": "\\0.Practice\\DeDvKalman.py",
   "PreviewInSolutionExplorer": false
 }

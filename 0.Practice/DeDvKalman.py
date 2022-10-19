@@ -72,10 +72,10 @@ def DeDvKalman(z):
         dt = 0.1
         A2 = np.array([[1, dt], [0, 1]])
         H2 = np.array([[1, 0]])
-        Q2 = np.array([[1, 0], [0, 3]])
-        R2 = np.array([10])
+        Q2 = np.array([[1, 0], [0, 1]])  # [[1, 0], [0, 3]] 초기값
+        R2 = np.array([1]) #초기값 10
 
-        X2 = np.array([0, 20]).transpose()
+        X2 = np.array([500, 20]).transpose() # 초기값 500
         P2 = 5 * np.eye(2)
         firstRun2 = False
     else:
@@ -104,6 +104,7 @@ for i in range(len(y2)):
     if First:
         Count = np.array([0])
         First = False
+        #DeXsaved[0,0] = 500 # 초기값 설정
     else:
         Z = y2[i]
         pos, vel = DvKalman(Z)
@@ -120,15 +121,17 @@ for i in range(len(y2)):
 #plt.xlabel('x')
 #plt.show()
 
-second = True
-for k in range(len(t1)):
-    if second:
-        z = np.array([0])
-        second = False
-    else:
-        z = np.append(z, np.array([k]))
+#second = True
+#for k in range(len(t1)):
+#    if second:
+#        z = np.array([0])
+#        second = False
+#    else:
+#        z = np.append(z, np.array([k]))
+
 
 plt.figure()
+plt.xlim(0,len(Count))
 plt.plot(Count, DeXsaved[:,0], 'r', label='Kalman Filter')
 plt.plot(Count, t1, 'g', label='groundTruth')
 plt.plot(Count, y2, 'b.', label='Measurements')
