@@ -2,9 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\0.Practice",
-    "\\12.EKF",
-    "\\9.DvKalman"
+    "\\12.EKF"
   ],
-  "SelectedNode": "\\0.Practice\\DvKalman.py",
+  "SelectedNode": "\\12.EKF\\12_RadarEKF.py",
   "PreviewInSolutionExplorer": false
 }
