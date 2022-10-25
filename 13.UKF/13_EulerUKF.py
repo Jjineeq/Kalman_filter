@@ -1,8 +1,3 @@
-'''
- Filename: 13_EulerUKF.py
- Created on: April,10, 2021
- Author: dhpark
-'''
 import numpy as np
 from numpy.linalg import inv, cholesky
 import matplotlib.pyplot as plt

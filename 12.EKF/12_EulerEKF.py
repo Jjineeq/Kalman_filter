@@ -1,8 +1,3 @@
-'''
- Filename: 12_EulerEKF.py
- Created on: April,10, 2021
- Author: dhpark
-'''
 import numpy as np
 from numpy.linalg import inv
 import matplotlib.pyplot as plt
