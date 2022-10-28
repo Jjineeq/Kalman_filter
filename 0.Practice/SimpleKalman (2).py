@@ -2,8 +2,8 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 
-input_mat = pd.read_csv("C:/Users/Jang/measurmens.csv")
-test_mat = pd.read_csv("C:/Users/Jang/groundTruth.csv")
+input_mat = pd.read_csv("C:/Users/User/Desktop/measurmens.csv")
+test_mat = pd.read_csv("C:/Users/User/Desktop/groundTruth.csv")
 
 y1 = input_mat.iloc[:,[1]] 
 x1 = input_mat.iloc[:,[0]] 

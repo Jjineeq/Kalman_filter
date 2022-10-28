@@ -5,8 +5,8 @@ import pandas as pd
 xbuf = []
 firstRun = True
 
-input_mat = pd.read_csv("C:/Users/Jang/measurmens.csv")
-test_mat = pd.read_csv("C:/Users/Jang/groundTruth.csv")
+input_mat = pd.read_csv("C:/Users/User/Desktop/measurmens.csv")
+test_mat = pd.read_csv("C:/Users/User/Desktop/groundTruth.csv")
 
 def MovAvgFilter_batch(x):
     global n, xbuf, firstRun

@@ -2,12 +2,13 @@
   "ExpandedNodes": [
     "",
     "\\0.Practice",
+    "\\11.ARS",
     "\\12.EKF",
     "\\13.UKF",
     "\\14.PF",
     "\\15.HPF",
     "\\16.CompFilter"
   ],
-  "SelectedNode": "\\0.Practice\\EKF.py",
+  "SelectedNode": "\\11.ARS\\ArsGyro.mat",
   "PreviewInSolutionExplorer": false
 }
