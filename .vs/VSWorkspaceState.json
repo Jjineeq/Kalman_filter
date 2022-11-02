@@ -1,14 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\0.Practice",
-    "\\11.ARS",
-    "\\12.EKF",
-    "\\13.UKF",
-    "\\14.PF",
-    "\\15.HPF",
-    "\\16.CompFilter"
+    "\\0.Practice"
   ],
-  "SelectedNode": "\\11.ARS\\ArsGyro.mat",
+  "SelectedNode": "\\0.Practice\\DeDvKalman.py",
   "PreviewInSolutionExplorer": false
 }
