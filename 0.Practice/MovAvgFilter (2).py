@@ -5,13 +5,15 @@ import pandas as pd
 xbuf = []
 firstRun = True
 
-input_mat = pd.read_csv("C:/Users/User/Desktop/measurmens.csv")
-test_mat = pd.read_csv("C:/Users/User/Desktop/groundTruth.csv")
+input_mat = pd.read_csv("C:/Users/User/Desktop/Python_Script_out.csv")
+test_mat = pd.read_csv("C:/Users/User/Desktop/Python_Script_out.csv")
+input_mat = input_mat[['pr']]
+test_mat = test_mat[['amount']]
 
 def MovAvgFilter_batch(x):
     global n, xbuf, firstRun
     if firstRun:
-        n = 5
+        n = 2
         xbuf = x * np.ones(n)
         firstRun = False
     else:
@@ -22,7 +24,7 @@ def MovAvgFilter_batch(x):
     return avg
 
 
-y1 = input_mat.iloc[:,[1]] 
+y1 = input_mat.iloc[:,[0]] 
 x1 = input_mat.iloc[:,[0]] 
 y1 = y1.to_numpy()
 x1 = x1.to_numpy()
@@ -49,3 +51,6 @@ plt.legend(loc='upper left')
 plt.ylabel('y')
 plt.xlabel('x')
 plt.show()
+
+#a = pd.DataFrame(a)
+#a.to_csv("C:/Users/User/Desktop/a.csv")
